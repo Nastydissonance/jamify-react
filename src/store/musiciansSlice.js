@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../utils/api";
 
-// Асинхронный thunk для загрузки музыкантов
 export const fetchMusicians = createAsyncThunk(
   "musicians/fetchMusicians",
   async (_, { rejectWithValue }) => {
@@ -16,8 +15,9 @@ export const fetchMusicians = createAsyncThunk(
 
 const initialState = {
   items: [],
-  status: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
+  status: "idle",
   error: null,
+  selectedFilters: [],
 };
 
 const musiciansSlice = createSlice({
@@ -26,6 +26,19 @@ const musiciansSlice = createSlice({
   reducers: {
     clearError: (state) => {
       state.error = null;
+    },
+    toggleFilter: (state, action) => {
+      const filter = action.payload;
+      if (state.selectedFilters.includes(filter)) {
+        state.selectedFilters = state.selectedFilters.filter(
+          (f) => f !== filter,
+        );
+      } else {
+        state.selectedFilters.push(filter);
+      }
+    },
+    clearFilters: (state) => {
+      state.selectedFilters = [];
     },
   },
   extraReducers: (builder) => {
@@ -45,5 +58,6 @@ const musiciansSlice = createSlice({
   },
 });
 
-export const { clearError } = musiciansSlice.actions;
+export const { clearError, toggleFilter, clearFilters } =
+  musiciansSlice.actions;
 export default musiciansSlice.reducer;

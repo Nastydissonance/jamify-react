@@ -168,7 +168,7 @@ body {
 }
 
 // ============================================
-//  CONTAINER (for centering content)
+//  CONTAINER
 // ============================================
 .container {
   max-width: 1300px;
@@ -190,7 +190,7 @@ body {
 }
 
 // ============================================
-//  CYBER HEADER (full width, content centered)
+//  CYBER HEADER
 // ============================================
 .cyber-header {
   background: rgba(0, 0, 0, 0.8);
@@ -215,7 +215,7 @@ body {
 }
 
 // ============================================
-//  CYBER FOOTER (full width, content centered)
+//  CYBER FOOTER
 // ============================================
 .cyber-footer {
   border-top: 1px solid $neon-cyan;
@@ -263,17 +263,19 @@ main {
   display: flex;
   flex-direction: column;
   height: 100%;
-  background: $card-bg;
+  background: rgba(17, 18, 20, 0.6);
+  backdrop-filter: blur(8px);
   border-radius: 24px;
   padding: 24px;
-  border: 1px solid #24262c;
+  border: 1px solid rgba(0, 255, 255, 0.15);
   transition: $transition;
+  cursor: pointer;
 
   &:hover {
-    border-color: $neon-cyan;
+    border-color: rgba(0, 255, 255, 0.5);
     transform: translateY(-6px);
-    background: $card-bg-hover;
-    box-shadow: $glow-cyan;
+    background: rgba(21, 23, 28, 0.7);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
   }
 }
 
@@ -322,30 +324,6 @@ main {
   align-items: center;
 }
 
-.genre-badge {
-  display: inline-block;
-  width: auto;
-  white-space: nowrap;
-  background: #1e2128;
-  border-radius: 20px;
-  padding: 4px 12px;
-  font-size: 12px;
-  font-weight: 500;
-  color: #b9c0d4;
-}
-
-.instrument-badge {
-  display: inline-block;
-  width: auto;
-  white-space: nowrap;
-  background: #232530;
-  border-radius: 20px;
-  padding: 4px 12px;
-  font-size: 12px;
-  font-weight: 500;
-  color: #a5b0e0;
-}
-
 .musician-description {
   font-size: 14px;
   color: #afb3bc;
@@ -354,7 +332,164 @@ main {
 }
 
 // ============================================
-//  CARD BUTTONS (Connect, Edit, Delete)
+//  TAGS & BADGES (CYBERPUNK STYLED)
+// ============================================
+
+.tag {
+  background: rgba(0, 255, 255, 0.05);
+  padding: 10px 24px;
+  border-radius: 40px;
+  font-weight: 600;
+  font-size: 14px;
+  color: grey;
+  transition: all 0.25s ease;
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  cursor: pointer;
+  font-family: $font-mono;
+  letter-spacing: 1px;
+  backdrop-filter: blur(4px);
+
+  i {
+    margin-right: 8px;
+    color: $neon-cyan;
+  }
+
+  &:hover {
+    background: rgba(0, 255, 255, 0.15);
+    border-color: $neon-cyan;
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+    text-shadow: 0 0 5px $neon-cyan;
+  }
+
+  &.tag-active {
+    background: linear-gradient(135deg, $neon-magenta, $neon-purple);
+    border-color: $neon-magenta;
+    color: $dark-bg;
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.6);
+    text-shadow: 0 0 3px white;
+    font-weight: bold;
+    animation: pulse-glow 1.5s infinite;
+
+    i {
+      color: $dark-bg;
+    }
+  }
+}
+
+@keyframes pulse-glow {
+  0% { box-shadow: 0 0 5px rgba(255, 0, 255, 0.5); }
+  50% { box-shadow: 0 0 20px rgba(255, 0, 255, 0.9); }
+  100% { box-shadow: 0 0 5px rgba(255, 0, 255, 0.5); }
+}
+
+// Genre badges (pink/magenta theme)
+.genre-badge {
+  display: inline-block;
+  background: rgba(255, 0, 255, 0.1);
+  border: 1px solid $neon-magenta;
+  color: $neon-pink;
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: $font-mono;
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(2px);
+  background: rgba(255, 0, 255, 0.08);
+
+  &:hover {
+    background: rgba(255, 0, 255, 0.25);
+    box-shadow: 0 0 8px rgba(255, 0, 255, 0.5);
+    transform: scale(1.02);
+  }
+
+  &.large {
+    padding: 8px 20px;
+    font-size: 14px;
+  }
+
+  .remove-tag {
+    background: none;
+    border: none;
+    color: $neon-pink;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 8px;
+    opacity: 0.7;
+    transition: 0.2s;
+
+    &:hover {
+      opacity: 1;
+      color: white;
+      text-shadow: 0 0 5px $neon-pink;
+    }
+  }
+}
+
+// Instrument badges (cyan theme)
+.instrument-badge {
+  display: inline-block;
+  background: rgba(0, 255, 255, 0.1);
+  border: 1px solid $neon-cyan;
+  color: $neon-cyan;
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: $font-mono;
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(2px);
+  background: rgba(0, 255, 255, 0.08);
+
+  &:hover {
+    background: rgba(0, 255, 255, 0.25);
+    box-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
+    transform: scale(1.02);
+  }
+
+  &.large {
+    padding: 8px 20px;
+    font-size: 14px;
+  }
+
+  .remove-tag {
+    background: none;
+    border: none;
+    color: $neon-cyan;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 8px;
+    opacity: 0.7;
+    transition: 0.2s;
+
+    &:hover {
+      opacity: 1;
+      color: white;
+      text-shadow: 0 0 5px $neon-cyan;
+    }
+  }
+}
+
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+  margin: 30px 0 20px;
+}
+
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+// ============================================
+//  CARD BUTTONS
 // ============================================
 .card-buttons {
   display: flex;
@@ -375,44 +510,111 @@ main {
   font-weight: bold;
   font-size: 13px;
   cursor: pointer;
-  transition: $transition;
+  transition: all 0.25s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
   text-align: center;
   white-space: nowrap;
+  backdrop-filter: blur(4px);
+  background: rgba(10, 12, 16, 0.5);
+  border: 1px solid rgba(0, 255, 255, 0.2);
 }
 
 .connect-btn {
   flex: 1.2 1 0;
-  background: transparent;
-  border: 1px solid $neon-cyan;
   color: $neon-cyan;
 
   &:hover {
-    background: $neon-cyan;
-    color: $dark-bg;
-    box-shadow: $glow-cyan;
+    background: rgba(0, 255, 255, 0.15);
+    border-color: $neon-cyan;
+    box-shadow: 0 0 12px rgba(0, 255, 255, 0.3);
+    text-shadow: 0 0 5px $neon-cyan;
   }
 }
 
+
 .edit-btn {
-  background: transparent;
-  border: 1px solid $neon-gold;
   color: $neon-gold;
+  border-color: rgba(255, 170, 0, 0.3);
 
   &:hover {
-    background: $neon-gold;
-    color: $dark-bg;
-    box-shadow: $glow-gold;
+    background: rgba(255, 170, 0, 0.15);
+    border-color: $neon-gold;
+    box-shadow: 0 0 12px rgba(255, 170, 0, 0.3);
+    text-shadow: 0 0 5px $neon-gold;
   }
 }
 
 .delete-btn {
-  background: transparent;
+  color: $neon-red;
+  border-color: rgba(255, 51, 102, 0.3);
+
+  &:hover {
+    background: rgba(255, 51, 102, 0.15);
+    border-color: $neon-red;
+    box-shadow: 0 0 12px rgba(255, 51, 102, 0.3);
+    text-shadow: 0 0 5px $neon-red;
+  }
+}
+
+// ============================================
+//  ADD MUSICIAN BUTTON (Tag-aligned style)
+// ============================================
+.add-musician-btn {
+  background: rgba(0, 255, 255, 0.05);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  padding: 12px 32px;
+  border-radius: 40px;
+  font-weight: 600;
+  font-size: 14px;
+  font-family: $font-mono;
+  letter-spacing: 1px;
+  color: $neon-cyan;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px auto 40px;
+
+  i {
+    font-size: 16px;
+    transition: transform 0.2s ease;
+  }
+
+  &:hover {
+    background: rgba(0, 255, 255, 0.15);
+    border-color: $neon-cyan;
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+    text-shadow: 0 0 5px $neon-cyan;
+
+    i {
+      transform: scale(1.1);
+    }
+  }
+}
+
+  &:active {
+    transform: translateY(0);
+  }
+
+// ============================================
+//  CLEAR FILTERS BUTTON
+// ============================================
+.clear-filters-btn {
+  background: rgba(255, 51, 102, 0.2);
   border: 1px solid $neon-red;
   color: $neon-red;
+  padding: 8px 24px;
+  border-radius: 40px;
+  cursor: pointer;
+  font-family: $font-mono;
+  margin: 20px auto 40px;
+  transition: $transition;
 
   &:hover {
     background: $neon-red;
@@ -473,9 +675,10 @@ main {
 }
 
 .cyber-modal {
-  background: $dark-bg;
-  border: 2px solid $neon-cyan;
-  box-shadow: 0 0 40px rgba(0, 255, 255, 0.3);
+  background: rgba(10, 12, 16, 0.85);
+  backdrop-filter: blur(16px);
+  border: 2px solid rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 40px rgba(0, 255, 255, 0.2);
   border-radius: 24px;
   padding: 32px;
   width: 90%;
@@ -567,157 +770,90 @@ main {
 }
 
 // ============================================
-//  TEMPORARY MESSAGES ANIMATIONS
+//  FORM TAGS INPUT
 // ============================================
-@keyframes slideIn {
-  from {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
+.tag-input-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
 
-@keyframes slideOut {
-  from {
-    transform: translateX(0);
-    opacity: 1;
-  }
-  to {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-}
-
-// ============================================
-//  RESPONSIVE
-// ============================================
-@media (max-width: 780px) {
-  .container {
-    padding: 0 20px;
-  }
-
-  .cyber-header .container {
-    padding: 1.5rem 20px;
-  }
-
-  .cyber-footer .container {
-    padding: 1rem 20px;
-  }
-
-  main .container {
-    padding-top: 30px;
-    padding-bottom: 30px;
-  }
-
-  .cards-grid {
-    gap: 20px;
-    margin: 30px 0;
-  }
-}
-
-@media (max-width: 768px) {
-  .glitch::before,
-  .glitch::after {
-    display: none;
-  }
-
-  .glitch {
-    text-shadow:
-      0 0 3px rgba(0, 255, 255, 0.5),
-      0 0 8px rgba(255, 0, 255, 0.3);
-    animation: none;
-  }
-
-  .cyber-header h1 {
-    font-size: 2rem;
-  }
-}
-
-@media (max-width: 560px) {
-  .card-buttons {
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .connect-btn,
-  .edit-btn,
-  .delete-btn {
-    white-space: normal;
-    min-width: auto;
+  input {
     flex: 1;
   }
 
-  .musician-card {
-    padding: 18px;
-  }
-
-  .card-header h3 {
-    font-size: 18px;
-  }
-}
-
-@media (min-width: 1400px) {
-  .card-buttons {
-    gap: 16px;
-  }
-
-  .connect-btn,
-  .edit-btn,
-  .delete-btn {
-    font-size: 14px;
-    padding: 12px 8px;
-  }
-}
-
-// ============================================
-//  MUSICIAN PAGE (placeholder styles)
-// ============================================
-.musician-page {
-  padding: 20px 0;
-}
-
-.back-btn {
-  background: transparent;
-  border: 1px solid $neon-cyan;
-  color: $neon-cyan;
-  padding: 10px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-family: $font-mono;
-  margin-bottom: 30px;
-  transition: $transition;
-
-  &:hover {
+  .add-tag-btn {
     background: $neon-cyan;
+    border: none;
+    padding: 0 20px;
+    border-radius: 8px;
     color: $dark-bg;
-    box-shadow: $glow-cyan;
+    font-weight: bold;
+    cursor: pointer;
+    transition: $transition;
+
+    &:hover {
+      background: $neon-magenta;
+      box-shadow: $glow-magenta;
+    }
   }
 }
 
-.musician-page-card {
-  background: $card-bg;
-  border: 2px solid $neon-cyan;
-  border-radius: 32px;
-  padding: 40px;
-  box-shadow: 0 0 40px rgba(0, 255, 255, 0.2);
+// ============================================
+//  DELETE CONFIRMATION
+// ============================================
+.delete-confirm {
   text-align: center;
-
-  h1 {
-    color: $neon-cyan;
-    margin-bottom: 20px;
-  }
+  padding: 20px 0;
 
   p {
-    color: #ccc;
-    font-size: 1.2rem;
+    margin-bottom: 16px;
+    font-size: 1.1rem;
+  }
+
+  .delete-warning {
+    color: $neon-red;
+    font-size: 0.9rem;
+  }
+}
+
+.delete-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 24px;
+
+  .cancel-btn {
+    background: transparent;
+    border: 1px solid $neon-cyan;
+    color: $neon-cyan;
+    padding: 10px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+
+    &:hover {
+      background: $neon-cyan;
+      color: $dark-bg;
+    }
+  }
+
+  .confirm-delete-btn {
+    background: $neon-red;
+    border: none;
+    color: $dark-bg;
+    padding: 10px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+
+    &:hover {
+      box-shadow: $glow-red;
+      transform: scale(1.02);
+    }
   }
 }
 
 // ============================================
-//  MUSICIAN PAGE (FULL DETAILS)
+//  MUSICIAN PAGE (DETAILS)
 // ============================================
 .musician-page {
   padding: 20px 0;
@@ -792,19 +928,6 @@ main {
   }
 }
 
-.tags-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.instrument-badge.large,
-.genre-badge.large {
-  padding: 8px 20px;
-  font-size: 16px;
-  border-radius: 40px;
-}
-
 .musician-page-description {
   font-size: 1.1rem;
   line-height: 1.6;
@@ -831,8 +954,75 @@ main {
   }
 }
 
-// Responsive for musician page
+// ============================================
+//  ANIMATIONS
+// ============================================
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+// ============================================
+//  RESPONSIVE
+// ============================================
+@media (max-width: 780px) {
+  .container {
+    padding: 0 20px;
+  }
+
+  .cyber-header .container {
+    padding: 1.5rem 20px;
+  }
+
+  .cyber-footer .container {
+    padding: 1rem 20px;
+  }
+
+  main .container {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+
+  .cards-grid {
+    gap: 20px;
+    margin: 30px 0;
+  }
+}
+
 @media (max-width: 768px) {
+  .glitch::before,
+  .glitch::after {
+    display: none;
+  }
+
+  .glitch {
+    text-shadow:
+      0 0 3px rgba(0, 255, 255, 0.5),
+      0 0 8px rgba(255, 0, 255, 0.3);
+    animation: none;
+  }
+
+  .cyber-header h1 {
+    font-size: 2rem;
+  }
+
   .musician-page-header {
     flex-direction: column;
     text-align: center;
@@ -855,5 +1045,41 @@ main {
   .edit-btn.large,
   .delete-btn.large {
     width: 100%;
+  }
+}
+
+@media (max-width: 560px) {
+  .card-buttons {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .connect-btn,
+  .edit-btn,
+  .delete-btn {
+    white-space: normal;
+    min-width: auto;
+    flex: 1;
+  }
+
+  .musician-card {
+    padding: 18px;
+  }
+
+  .card-header h3 {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .card-buttons {
+    gap: 16px;
+  }
+
+  .connect-btn,
+  .edit-btn,
+  .delete-btn {
+    font-size: 14px;
+    padding: 12px 8px;
   }
 }
