@@ -1,10 +1,8 @@
 import axios from "axios";
 
-// Переключаемся между localhost и продакшеном
-const BASE_URL =
-  import.meta.env.DEV && false
-    ? "http://localhost:3001" // локальный json-server
-    : "https://jamify-backend-necrosamurai.onrender.com";
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
+
+console.log(`🔌 API base URL: ${BASE_URL}`); // чтобы видеть, куда стучусь
 
 const api = axios.create({
   baseURL: BASE_URL,
