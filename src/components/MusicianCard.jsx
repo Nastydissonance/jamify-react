@@ -12,6 +12,11 @@ const MusicianCard = ({ musician }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
 
+  const handleMouseEnter = () => {
+    // Here I'm loading MusicianPage when cursor is on it
+    import('../pages/MusicianPage')
+  }
+
   const handleCardClick = () => {
     navigate(`/musician/${musician.id}`)
   }
@@ -40,7 +45,7 @@ const MusicianCard = ({ musician }) => {
 
   return (
     <>
-      <div className="musician-card" onClick={handleCardClick}>
+      <div className="musician-card" onClick={handleCardClick} onMouseEnter={handleMouseEnter}>
         <div className="card-header">
           <div className="avatar">
             <i className={musician.avatarIcon || 'fas fa-user'}></i>
