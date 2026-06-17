@@ -5,7 +5,7 @@ import api from '../utils/api'
 import MusicianCard from '../components/MusicianCard'
 import Modal from '../components/Modal'
 import MusicianForm from '../components/MusicianForm'
-import TagFilter from '../components/TagFilter'  // ← добавляем импорт
+import TagFilter from '../components/TagFilter'  // ← Adding import
 
 const HomePage = () => {
   const dispatch = useDispatch()
@@ -41,11 +41,11 @@ const HomePage = () => {
     })
 
   if (status === 'loading') {
-    return <div className="loader">💀 ЗАГРУЗКА КИБЕРПАНКА... 💀</div>
+    return <div className="loader">💀 CYBERPUNK IS LOADING... 💀</div>
   }
 
   if (status === 'failed') {
-    return <div className="error">⚠️ ОШИБКА: {error} ⚠️</div>
+    return <div className="error">⚠️ ERROR: {error} ⚠️</div>
   }
 
   return (
