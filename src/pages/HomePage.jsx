@@ -29,7 +29,7 @@ const HomePage = () => {
     }
   }
 
-  // Фильтруем музыкантов по выбранным тегам
+  // Filter musicians by tags
   const filteredMusicians = selectedFilters.length === 0
     ? musicians
     : musicians.filter(musician => {
@@ -56,10 +56,10 @@ const HomePage = () => {
         </button>
       </div>
 
-      <TagFilter />  {/* ← добавляем компонент фильтров */}
+      <TagFilter />  {/* ← add filters component */}
 
       {filteredMusicians.length === 0 ? (
-        <div className="empty">🎸 НИКОГО НЕ НАЙДЕНО ПО ФИЛЬТРАМ 🎸</div>
+        <div className="empty">🎸 NOBODY FOUND BY YOUR FILTERS  🎸</div>
       ) : (
         <div className="cards-grid">
           {filteredMusicians.map((musician) => (
