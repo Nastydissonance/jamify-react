@@ -4,7 +4,8 @@ import { useState } from 'react'
 import api from '../utils/api'
 import { fetchMusicians } from '../store/musiciansSlice'
 import Modal from './Modal'
-import MusicianForm from './MusicianForm'
+import MusicianForm from './MusicianForm';
+
 
 const MusicianCard = ({ musician }) => {
   const navigate = useNavigate()
@@ -50,7 +51,7 @@ const MusicianCard = ({ musician }) => {
           <div className="avatar">
             <i className={musician.avatarIcon || 'fas fa-user'}></i>
           </div>
-          <h3>{musician.name || 'Без имени'}</h3>
+          <h3>{musician.name || 'No Name'}</h3>
         </div>
 
         <div className="badges">
@@ -83,7 +84,7 @@ const MusicianCard = ({ musician }) => {
         </div>
       </div>
 
-      <Modal isOpen={isEditModalOpen} onClose={() => setIsEditModalOpen(false)} title="✏️ EDIT MUSICIAN">
+      <Modal isOpen={isEditModalOpen} onClose={() => setIsEditModalOpen(false)} title={<><i className="fas fa-user-edit"></i> EDIT MUSICIAN</>}>
         <MusicianForm
           initialData={musician}
           onSubmit={handleEdit}
@@ -92,7 +93,7 @@ const MusicianCard = ({ musician }) => {
         />
       </Modal>
 
-      <Modal isOpen={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)} title="⚠️ DELETE MUSICIAN">
+      <Modal isOpen={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)} title={<><i className="fas fa-user-minus"></i> DELETE MUSICIAN</>}>
         <div className="delete-confirm">
           <p>Are you sure you want to delete <strong>{musician.name}</strong>?</p>
           <p className="delete-warning">This action cannot be undone!</p>

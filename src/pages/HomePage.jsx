@@ -4,8 +4,8 @@ import { fetchMusicians } from '../store/musiciansSlice'
 import api from '../utils/api'
 import MusicianCard from '../components/MusicianCard'
 import Modal from '../components/Modal'
-import MusicianForm from '../components/MusicianForm'
-import TagFilter from '../components/TagFilter'  // ← Adding import
+import TagFilter from '../components/TagFilter'
+import MusicianForm from '../components/MusicianForm';
 
 const HomePage = () => {
   const dispatch = useDispatch()
@@ -59,7 +59,7 @@ const HomePage = () => {
       <TagFilter />  {/* ← add filters component */}
 
       {filteredMusicians.length === 0 ? (
-        <div className="empty">🎸 NOBODY FOUND BY YOUR FILTERS  🎸</div>
+        <div className="empty">NOBODY FOUND BY YOUR FILTERS</div>
       ) : (
         <div className="cards-grid">
           {filteredMusicians.map((musician) => (
@@ -68,7 +68,7 @@ const HomePage = () => {
         </div>
       )}
 
-      <Modal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)} title="✨ CREATE NEW MUSICIAN">
+      <Modal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)} title={<><i className="fas fa-user-plus"></i> CREATE MUSICIAN</>}>
         <MusicianForm
           onSubmit={handleCreate}
           onClose={() => setIsAddModalOpen(false)}
