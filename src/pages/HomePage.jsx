@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchMusicians } from '../store/musiciansSlice'
 import api from '../utils/api'
@@ -18,7 +18,7 @@ const HomePage = () => {
     }
   }, [status, dispatch])
 
-  const handleCreate = async (newMusician) => {
+  const handleCreate = useCallback(async (newMusician) => {
     try {
       await api.post('/musicians', newMusician)
       dispatch(fetchMusicians())
@@ -27,18 +27,20 @@ const HomePage = () => {
       console.error('Create failed:', err)
       alert('Failed to create musician')
     }
-  }
+  }, [dispatch])
 
   // Filter musicians by tags
-  const filteredMusicians = selectedFilters.length === 0
-    ? musicians
-    : musicians.filter(musician => {
+  const filteredMusicians = useMemo(() => {
+    if (selectedFilters.length === 0) return musicians;
+
+    return musicians.filter(musician => {
       const musicianTags = [
         ...(musician.genres || []),
         ...(musician.instruments || [])
-      ]
-      return selectedFilters.some(filter => musicianTags.includes(filter))
-    })
+      ];
+      return selectedFilters.some(filter => musicianTags.includes(filter));
+    });
+  }, [musicians, selectedFilters]); // Dependencies!!!
 
   if (status === 'loading') {
     return <div className="loader">💀 CYBERPUNK IS LOADING... 💀</div>

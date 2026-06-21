@@ -1,3 +1,4 @@
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { useState } from 'react'
@@ -7,7 +8,7 @@ import Modal from './Modal'
 import MusicianForm from './MusicianForm';
 
 
-const MusicianCard = ({ musician }) => {
+const MusicianCard = React.memo(({ musician }) => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
@@ -105,6 +106,6 @@ const MusicianCard = ({ musician }) => {
       </Modal>
     </>
   )
-}
+})
 
 export default MusicianCard
