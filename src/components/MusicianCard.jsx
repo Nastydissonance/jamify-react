@@ -1,16 +1,23 @@
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { useState } from 'react'
 import api from '../utils/api'
 import { fetchMusicians } from '../store/musiciansSlice'
 import Modal from './Modal'
-import MusicianForm from './MusicianForm'
+import MusicianForm from './MusicianForm';
 
-const MusicianCard = ({ musician }) => {
+
+const MusicianCard = React.memo(({ musician }) => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+
+  const handleMouseEnter = () => {
+    // Here I'm loading MusicianPage when cursor is on it
+    import('../pages/MusicianPage')
+  }
 
   const handleCardClick = () => {
     navigate(`/musician/${musician.id}`)
@@ -40,12 +47,12 @@ const MusicianCard = ({ musician }) => {
 
   return (
     <>
-      <div className="musician-card" onClick={handleCardClick}>
+      <div className="musician-card" onClick={handleCardClick} onMouseEnter={handleMouseEnter}>
         <div className="card-header">
           <div className="avatar">
             <i className={musician.avatarIcon || 'fas fa-user'}></i>
           </div>
-          <h3>{musician.name || 'Без имени'}</h3>
+          <h3>{musician.name || 'No Name'}</h3>
         </div>
 
         <div className="badges">
@@ -78,7 +85,7 @@ const MusicianCard = ({ musician }) => {
         </div>
       </div>
 
-      <Modal isOpen={isEditModalOpen} onClose={() => setIsEditModalOpen(false)} title="✏️ EDIT MUSICIAN">
+      <Modal isOpen={isEditModalOpen} onClose={() => setIsEditModalOpen(false)} title={<><i className="fas fa-user-edit"></i> EDIT MUSICIAN</>}>
         <MusicianForm
           initialData={musician}
           onSubmit={handleEdit}
@@ -87,7 +94,7 @@ const MusicianCard = ({ musician }) => {
         />
       </Modal>
 
-      <Modal isOpen={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)} title="⚠️ DELETE MUSICIAN">
+      <Modal isOpen={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)} title={<><i className="fas fa-user-minus"></i> DELETE MUSICIAN</>}>
         <div className="delete-confirm">
           <p>Are you sure you want to delete <strong>{musician.name}</strong>?</p>
           <p className="delete-warning">This action cannot be undone!</p>
@@ -99,6 +106,6 @@ const MusicianCard = ({ musician }) => {
       </Modal>
     </>
   )
-}
+})
 
 export default MusicianCard

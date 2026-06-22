@@ -34,7 +34,7 @@ $transition: all 0.2s ease;
   box-shadow: 0 0 10px rgba($color, 0.3);
 }
 
-@mixin glass-bg {
+@mixin glass-bg { 
   background: rgba(10, 12, 16, 0.92);
   backdrop-filter: blur(8px);
 }
@@ -173,7 +173,7 @@ body {
 .container {
   max-width: 1300px;
   margin: 0 auto;
-  padding: 0 32px;
+  padding: 0 48px;
   position: relative;
   z-index: 2;
 }
@@ -248,13 +248,100 @@ main {
   }
 }
 
+
+// ============================================
+//  LOGIN PAGE STYLE
+// ============================================
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: $dark-bg;
+  background-image: radial-gradient(circle at 10% 20%, rgba(0, 255, 255, 0.05) 0%, transparent 50%);
+}
+
+.login-container {
+  background: rgba(10, 12, 16, 0.8);
+  backdrop-filter: blur(12px);
+  padding: 40px;
+  border-radius: 24px;
+  border: 1px solid $neon-cyan;
+  box-shadow: 0 0 40px rgba(0, 255, 255, 0.2);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: $neon-cyan;
+    text-shadow: 0 0 10px $neon-cyan;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+
+    input {
+      padding: 12px 16px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      border-radius: 8px;
+      color: #e0e3e8;
+      font-size: 1rem;
+      transition: $transition;
+
+      &:focus {
+        outline: none;
+        border-color: $neon-cyan;
+        box-shadow: 0 0 12px rgba(0, 255, 255, 0.3);
+      }
+    }
+
+      .login-btn {
+        @extend .tag; 
+
+        width: 100%;
+        justify-content: center;
+        background: rgba(0, 255, 255, 0.05);
+        color: $neon-cyan;
+        border-color: rgba(0, 255, 255, 0.3);
+        font-weight: 600;
+        font-size: 1rem;
+        padding: 12px 24px;
+        cursor: pointer;
+        transition: all 0.25s ease;
+
+      &:hover {
+        background: rgba(0, 255, 255, 0.15);
+        border-color: $neon-cyan;
+        transform: translateY(-2px);
+        box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+        text-shadow: 0 0 5px $neon-cyan;
+      }
+
+      i {
+        margin-right: 10px;
+      }
+
+      &:active {
+        transform: scale(0.98);
+        box-shadow: 0 0 30px rgba(0, 255, 255, 0.6);
+      }
+    }  
+  }
+}
+
 // ============================================
 //  MUSICIANS GRID & CARDS
 // ============================================
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 28px;
+  padding: 0 8px;
+  gap: 20px;
   margin: 40px 0 60px;
   align-items: stretch;
 }
@@ -473,12 +560,61 @@ main {
   }
 }
 
+.tags-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.tags-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 20px auto;
+}
+
+.tags-header {
+  font-family: $font-mono;
+  color: $neon-cyan;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+  margin-bottom: 8px;
+  font-size: 1.5rem;
+}
+
+.tags-paragraph {
+  color: #afb3bc;
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+}
+
 .tag-cloud {
   display: flex;
   flex-wrap: wrap;
-  gap: 14px;
   justify-content: center;
-  margin: 30px 0 20px;
+  align-items: center;
+  gap: 12px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.clear-filters-btn {
+  margin-top: 20px;
+  background: rgba(255, 51, 102, 0.2);
+  border: 1px solid $neon-red;
+  color: $neon-red;
+  padding: 8px 24px;
+  border-radius: 40px;
+  cursor: pointer;
+  font-family: $font-mono;
+  transition: $transition;
+
+  &:hover {
+    background: $neon-red;
+    color: $dark-bg;
+    box-shadow: $glow-red;
+  }
 }
 
 .tags-container {
@@ -563,6 +699,8 @@ main {
 //  ADD MUSICIAN BUTTON (Tag-aligned style)
 // ============================================
 .add-musician-btn {
+  @extend .tag;
+
   background: rgba(0, 255, 255, 0.05);
   backdrop-filter: blur(4px);
   border: 1px solid rgba(0, 255, 255, 0.3);
@@ -649,6 +787,30 @@ main {
 }
 
 // ============================================
+//  CYBER LOADER
+// ============================================
+.cyber-loader {
+  font-family: $font-mono;
+  font-size: 2rem;
+  color: $neon-cyan;
+  text-shadow: 0 0 20px $neon-cyan;
+  animation: pulse-glow 1.5s infinite;
+  letter-spacing: 4px;
+  position: relative;
+  
+  &::after {
+    content: ".";
+    animation: dots 1.5s steps(1, end) infinite;
+  }
+}
+
+@keyframes dots {
+  0% { content: "."; }
+  33% { content: ".."; }
+  66% { content: "..."; }
+}
+
+// ============================================
 //  MODAL
 // ============================================
 .modal {
@@ -675,6 +837,8 @@ main {
 }
 
 .cyber-modal {
+  position: relative;
+  z-index: 1000;
   background: rgba(10, 12, 16, 0.85);
   backdrop-filter: blur(16px);
   border: 2px solid rgba(0, 255, 255, 0.3);
@@ -687,6 +851,8 @@ main {
 }
 
 .modal-header {
+  position: relative;
+  z-index: 1001;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -701,15 +867,20 @@ main {
   }
 }
 
-.close-modal {
-  font-size: 32px;
+.close-modal-absolute {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 999999;
+  font-size: 48px;
   cursor: pointer;
   color: $neon-pink;
+  pointer-events: auto;
   transition: $transition;
 
   &:hover {
     color: $neon-red;
-    @include neon-text($neon-red);
+    text-shadow: 0 0 20px $neon-red;
   }
 }
 
@@ -750,22 +921,40 @@ main {
 }
 
 .submit-btn {
+  @extend .tag;
   width: 100%;
-  background: linear-gradient(135deg, $neon-cyan, $neon-magenta);
-  border: none;
-  padding: 14px;
-  border-radius: 40px;
+  justify-content: center;
+  background: rgba(0, 255, 255, 0.05);
+  color: $neon-cyan;
+  border-color: rgba(0, 255, 255, 0.3);
+  padding: 12px 24px;
   font-weight: 600;
-  font-size: 16px;
-  color: $dark-bg;
+  font-size: 1rem;
   cursor: pointer;
-  transition: $transition;
-  margin-top: 8px;
-  font-family: $font-mono;
+  transition: all 0.25s ease;
 
   &:hover {
-    transform: scale(1.02);
-    box-shadow: 0 0 20px $neon-cyan;
+    background: rgba(0, 255, 255, 0.15);
+    border-color: $neon-cyan;
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+    text-shadow: 0 0 5px $neon-cyan;
+  }
+}
+
+.cancel-btn {
+  @extend .tag;
+  background: rgba(255, 51, 102, 0.1);
+  color: $neon-red;
+  border-color: rgba(255, 51, 102, 0.3);
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+
+  &:hover {
+    background: rgba(255, 51, 102, 0.2);
+    border-color: $neon-red;
+    box-shadow: 0 0 15px rgba(255, 51, 102, 0.4);
   }
 }
 
@@ -1001,8 +1190,9 @@ main {
   }
 
   .cards-grid {
-    gap: 20px;
+    gap: 16px;
     margin: 30px 0;
+    grid-template-columns: 1fr;
   }
 }
 

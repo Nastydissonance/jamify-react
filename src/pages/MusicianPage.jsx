@@ -57,13 +57,13 @@ const MusicianPage = () => {
   }
 
   if (loading) {
-    return <div className="loader">💀 ЗАГРУЗКА ДАННЫХ МУЗЫКАНТА... 💀</div>
+    return <div className="loader">💀 LOADING MUSICIAN DATA... 💀</div>
   }
 
   if (error || !musician) {
     return (
       <div className="error">
-        ⚠️ ОШИБКА: {error || 'Музыкант не найден'} ⚠️
+        ⚠️ ERROR: {error || 'Musician not found'} ⚠️
         <div>
           <button onClick={() => navigate('/')} className="back-btn" style={{ marginTop: '20px' }}>
             ← Вернуться к списку
