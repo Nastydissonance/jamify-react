@@ -148,9 +148,19 @@ const MusicianForm = ({ initialData, onSubmit, onClose, isEdit }) => {
         />
       </div>
 
-      <button type="submit" className="submit-btn">
-        {isEdit ? '💾 UPDATE MUSICIAN' : '✨ ADD MUSICIAN'}
-      </button>
+      <div className="form-actions" style={{ display: 'flex', gap: '12px', marginTop: '16px' }}>
+        <button type="button" className="cancel-btn" onClick={onClose} style={{ flex: 1 }}>
+          <i className="fas fa-times"></i> CANCEL
+        </button>
+
+        <button type="submit" className="tag" style={{ width: '100%', justifyContent: 'center' }}>
+          {isEdit ? (
+            <><i className="fas fa-save"></i> UPDATE MUSICIAN</>
+          ) : (
+            <><i className="fas fa-user-plus"></i> ADD MUSICIAN</>
+          )}
+        </button>
+      </div>
     </form>
   )
 }

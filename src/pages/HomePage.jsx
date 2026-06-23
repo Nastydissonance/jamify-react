@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchMusicians } from '../store/musiciansSlice'
 import api from '../utils/api'
 import MusicianCard from '../components/MusicianCard'
 import Modal from '../components/Modal'
-import MusicianForm from '../components/MusicianForm'
-import TagFilter from '../components/TagFilter'  // ← добавляем импорт
+import TagFilter from '../components/TagFilter'
+import MusicianForm from '../components/MusicianForm';
 
 const HomePage = () => {
   const dispatch = useDispatch()
@@ -18,7 +18,7 @@ const HomePage = () => {
     }
   }, [status, dispatch])
 
-  const handleCreate = async (newMusician) => {
+  const handleCreate = useCallback(async (newMusician) => {
     try {
       await api.post('/musicians', newMusician)
       dispatch(fetchMusicians())
@@ -27,25 +27,27 @@ const HomePage = () => {
       console.error('Create failed:', err)
       alert('Failed to create musician')
     }
-  }
+  }, [dispatch])
 
-  // Фильтруем музыкантов по выбранным тегам
-  const filteredMusicians = selectedFilters.length === 0
-    ? musicians
-    : musicians.filter(musician => {
+  // Filter musicians by tags
+  const filteredMusicians = useMemo(() => {
+    if (selectedFilters.length === 0) return musicians;
+
+    return musicians.filter(musician => {
       const musicianTags = [
         ...(musician.genres || []),
         ...(musician.instruments || [])
-      ]
-      return selectedFilters.some(filter => musicianTags.includes(filter))
-    })
+      ];
+      return selectedFilters.some(filter => musicianTags.includes(filter));
+    });
+  }, [musicians, selectedFilters]); // Dependencies!!!
 
   if (status === 'loading') {
-    return <div className="loader">💀 ЗАГРУЗКА КИБЕРПАНКА... 💀</div>
+    return <div className="loader">💀 CYBERPUNK IS LOADING... 💀</div>
   }
 
   if (status === 'failed') {
-    return <div className="error">⚠️ ОШИБКА: {error} ⚠️</div>
+    return <div className="error">⚠️ ERROR: {error} ⚠️</div>
   }
 
   return (
@@ -56,10 +58,10 @@ const HomePage = () => {
         </button>
       </div>
 
-      <TagFilter />  {/* ← добавляем компонент фильтров */}
+      <TagFilter />  {/* ← add filters component */}
 
       {filteredMusicians.length === 0 ? (
-        <div className="empty">🎸 НИКОГО НЕ НАЙДЕНО ПО ФИЛЬТРАМ 🎸</div>
+        <div className="empty">NOBODY FOUND BY YOUR FILTERS</div>
       ) : (
         <div className="cards-grid">
           {filteredMusicians.map((musician) => (
@@ -68,7 +70,7 @@ const HomePage = () => {
         </div>
       )}
 
-      <Modal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)} title="✨ CREATE NEW MUSICIAN">
+      <Modal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)} title={<><i className="fas fa-user-plus"></i> CREATE MUSICIAN</>}>
         <MusicianForm
           onSubmit={handleCreate}
           onClose={() => setIsAddModalOpen(false)}
