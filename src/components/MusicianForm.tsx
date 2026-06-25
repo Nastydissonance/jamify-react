@@ -1,16 +1,37 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
+import { Musician } from '../types';
 
-const MusicianForm = ({ initialData, onSubmit, onClose, isEdit }) => {
-  const [formData, setFormData] = useState({
+// ============================================================
+// TYPES FOR PROPS
+// ============================================================
+
+interface MusicianFormProps {
+  initialData?: Partial<Musician>;
+  onSubmit: (data: Omit<Musician, 'id'>) => void | Promise<void>;
+  onClose: () => void;
+  isEdit: boolean;
+}
+
+// ============================================================
+// COMPONENT
+// ============================================================
+
+const MusicianForm = ({
+  initialData,
+  onSubmit,
+  onClose,
+  isEdit,
+}: MusicianFormProps) => {
+  const [formData, setFormData] = useState<Omit<Musician, 'id'>>({
     name: '',
     avatarIcon: 'fas fa-user',
     genres: [],
     instruments: [],
-    description: ''
-  })
+    description: '',
+  });
 
-  const [genreInput, setGenreInput] = useState('')
-  const [instrumentInput, setInstrumentInput] = useState('')
+  const [genreInput, setGenreInput] = useState<string>('');
+  const [instrumentInput, setInstrumentInput] = useState<string>('');
 
   useEffect(() => {
     if (initialData) {
@@ -19,56 +40,56 @@ const MusicianForm = ({ initialData, onSubmit, onClose, isEdit }) => {
         avatarIcon: initialData.avatarIcon || 'fas fa-user',
         genres: initialData.genres || [],
         instruments: initialData.instruments || [],
-        description: initialData.description || ''
-      })
+        description: initialData.description || '',
+      });
     }
-  }, [initialData])
+  }, [initialData]);
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
-    })
-  }
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const addGenre = () => {
     if (genreInput.trim() && !formData.genres.includes(genreInput.trim())) {
       setFormData({
         ...formData,
-        genres: [...formData.genres, genreInput.trim()]
-      })
-      setGenreInput('')
+        genres: [...formData.genres, genreInput.trim()],
+      });
+      setGenreInput('');
     }
-  }
+  };
 
-  const removeGenre = (genre) => {
+  const removeGenre = (genre: string) => {
     setFormData({
       ...formData,
-      genres: formData.genres.filter(g => g !== genre)
-    })
-  }
+      genres: formData.genres.filter((g) => g !== genre),
+    });
+  };
 
   const addInstrument = () => {
     if (instrumentInput.trim() && !formData.instruments.includes(instrumentInput.trim())) {
       setFormData({
         ...formData,
-        instruments: [...formData.instruments, instrumentInput.trim()]
-      })
-      setInstrumentInput('')
+        instruments: [...formData.instruments, instrumentInput.trim()],
+      });
+      setInstrumentInput('');
     }
-  }
+  };
 
-  const removeInstrument = (instrument) => {
+  const removeInstrument = (instrument: string) => {
     setFormData({
       ...formData,
-      instruments: formData.instruments.filter(i => i !== instrument)
-    })
-  }
+      instruments: formData.instruments.filter((i) => i !== instrument),
+    });
+  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    onSubmit(formData)
-  }
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    onSubmit(formData);
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -144,7 +165,7 @@ const MusicianForm = ({ initialData, onSubmit, onClose, isEdit }) => {
           name="description"
           value={formData.description}
           onChange={handleChange}
-          rows="4"
+          rows={4}
         />
       </div>
 
@@ -162,7 +183,7 @@ const MusicianForm = ({ initialData, onSubmit, onClose, isEdit }) => {
         </button>
       </div>
     </form>
-  )
-}
+  );
+};
 
-export default MusicianForm
+export default MusicianForm;

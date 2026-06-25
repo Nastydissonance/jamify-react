@@ -1,8 +1,9 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { ModalProps } from '../types';
 
-const Modal = ({ isOpen, onClose, title, children }) => {
+const Modal = ({ isOpen, onClose, title, children }: ModalProps) => {
   useEffect(() => {
-    const handleEscape = (e) => {
+    const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
     };
 
@@ -23,7 +24,7 @@ const Modal = ({ isOpen, onClose, title, children }) => {
     <div className="modal" onClick={onClose}>
       <span
         className="close-modal-absolute"
-        onClick={(e) => {
+        onClick={(e: React.MouseEvent) => {
           e.stopPropagation();
           onClose();
         }}
@@ -31,7 +32,7 @@ const Modal = ({ isOpen, onClose, title, children }) => {
         &times;
       </span>
 
-      <div className="cyber-modal" onClick={(e) => e.stopPropagation()}>
+      <div className="cyber-modal" onClick={(e: React.MouseEvent) => e.stopPropagation()}>
         <div className="modal-header">
           <h2>{title}</h2>
         </div>
