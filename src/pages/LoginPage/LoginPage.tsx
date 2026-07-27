@@ -1,35 +1,37 @@
-import React, { useState, SyntheticEvent, ChangeEvent } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../store/store';
 import { login } from '../../store/authSlice';
-import { AppDispatch } from '../../store/store';
 
 // ============================================================
 // TYPES
 // ============================================================
 
-// Type for data in form (if I'd like to widen)
-interface LoginFormData {
-  username: string;
-  password: string;
-}
+// Нет пропсов — компонент использует хуки напрямую
 
 // ============================================================
 // COMPONENT
 // ============================================================
 
 const LoginPage: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const { loading, error, isAuthenticated } = useAppSelector((state) => state.auth);
 
-  const handleSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
+  // ============================================================
+  // HANDLERS
+  // ============================================================
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (username.trim() && password.trim()) {
-      dispatch(login({ username }));
+    if (!username.trim() || !password.trim()) return;
+
+    const result = await dispatch(login({ username, password }));
+    if (login.fulfilled.match(result)) {
       navigate('/');
     }
   };
@@ -41,6 +43,16 @@ const LoginPage: React.FC = () => {
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
+
+  // ============================================================
+  // RENDER
+  // ============================================================
+
+  // Если уже авторизован — редиректим
+  if (isAuthenticated) {
+    navigate('/');
+    return null;
+  }
 
   return (
     <div className="login-page">
@@ -54,15 +66,19 @@ const LoginPage: React.FC = () => {
             placeholder="Username"
             value={username}
             onChange={handleUsernameChange}
+            disabled={loading}
           />
           <input
             type="password"
             placeholder="Password"
             value={password}
             onChange={handlePasswordChange}
+            disabled={loading}
           />
-          <button type="submit" className="login-btn">
-            <i className="fas fa-sign-in-alt"></i> FIND JAMMATES
+          {error && <div className="error-message">❌ {error}</div>}
+          <button type="submit" className="login-btn" disabled={loading}>
+            <i className="fas fa-sign-in-alt"></i>
+            {loading ? 'LOADING...' : 'FIND JAMMATES'}
           </button>
         </form>
       </div>

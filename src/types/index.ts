@@ -29,6 +29,8 @@ export interface Tag {
 export interface AuthState {
   user: { username: string } | null; // или более полный User, если есть
   isAuthenticated: boolean;
+  loading: boolean;
+  error: string | null;
 }
 
 export interface MusiciansState {

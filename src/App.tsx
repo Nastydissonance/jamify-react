@@ -1,10 +1,14 @@
 import { lazy, Suspense } from 'react';
-import { Routes, Route } from 'react-router-dom'; // ← BrowserRouter убран
+import { Routes, Route } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
-import LoginPage from './pages/LoginPage/LoginPage';
+import LoginPage from './pages/LoginPage/LoginPage'; // ← проверь путь
 
 const HomePage = lazy(() => import('./pages/HomePage'));
 const MusicianPage = lazy(() => import('./pages/MusicianPage'));
+
+// ============================================================
+// COMPONENT
+// ============================================================
 
 function App() {
   return (
